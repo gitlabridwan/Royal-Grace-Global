@@ -1,32 +1,30 @@
-const siteRoot = new URL("../", import.meta.url);
-const siteHref = (path = "") => {
-  const url = new URL(path, siteRoot);
-  return `${url.pathname}${url.search}${url.hash}`;
-};
-
 const navItems = [
-  ["Home", siteHref()],
-  ["About Us", siteHref("about/")],
-  ["Our Products", siteHref("products/")],
-  ["Global Partnership", siteHref("#partnership")],
-  ["Sustainability", siteHref("about/#commitment")],
-  ["News", siteHref("#news")],
-  ["Contact", siteHref("#contact")],
+  ["home", "Home", ""],
+  ["about", "About Us", "about/"],
+  ["products", "Our Products", "products/"],
+  ["partnership", "Global Partnership", "#partnership"],
+  ["sustainability", "Sustainability", "about/#commitment"],
+  ["news", "News", "#news"],
+  ["contact", "Contact", "#contact"],
 ];
 
-const activePathFor = (href) => {
-  if (href.includes("#")) return false;
-  const currentPath = window.location.pathname;
-  if (href === "/") return currentPath === "/";
-  if (href === "/products/") return currentPath.startsWith("/products/");
-  return currentPath === href;
+const getRoot = (element) => element.dataset.root || "./";
+const getPage = () => document.body.dataset.page || "home";
+const siteHref = (root, path = "") => `${root}${path}`;
+
+const activePathFor = (key) => {
+  const page = getPage();
+  if (key === "products") return page === "products" || page.startsWith("product-");
+  return page === key;
 };
 
 class SiteHeader extends HTMLElement {
   connectedCallback() {
+    const root = getRoot(this);
     const items = navItems
-      .map(([label, href]) => {
-        const current = activePathFor(href);
+      .map(([key, label, path]) => {
+        const href = siteHref(root, path);
+        const current = activePathFor(key);
         return `<li><a class="nav-link${current ? " is-active" : ""}" href="${href}"${current ? ' aria-current="page"' : ""}>${label}</a></li>`;
       })
       .join("");
@@ -35,8 +33,8 @@ class SiteHeader extends HTMLElement {
       <a class="skip-link" href="#main-content">Skip to content</a>
       <header class="site-header">
         <div class="header-inner">
-          <a class="brand" href="${siteHref()}" aria-label="Royal Grace Global home">
-            <span class="brand-mark" aria-hidden="true"><span>RG</span></span>
+          <a class="brand" href="${siteHref(root)}" aria-label="Royal Grace Global home">
+            <img class="brand-mark" src="${siteHref(root, "assets/favicon.svg")}" alt="" width="54" height="54">
             <span class="brand-copy">
               <strong>Royal Grace Global</strong>
               <small>Bridging Nations Enriching Lives</small>
@@ -50,7 +48,7 @@ class SiteHeader extends HTMLElement {
           </button>
           <nav id="primary-navigation" class="primary-navigation" aria-label="Primary navigation">
             <ul>${items}</ul>
-            <a class="header-cta" href="${siteHref("#contact")}">Contact Status <span aria-hidden="true">↗</span></a>
+            <a class="header-cta" href="${siteHref(root, "#contact")}">Get in Touch <span aria-hidden="true">→</span></a>
           </nav>
         </div>
       </header>`;
@@ -105,11 +103,12 @@ class SiteHeader extends HTMLElement {
 
 class SiteFooter extends HTMLElement {
   connectedCallback() {
+    const root = getRoot(this);
     this.innerHTML = `
       <footer class="site-footer">
         <div class="footer-main">
-          <a class="brand brand--footer" href="${siteHref()}" aria-label="Royal Grace Global home">
-            <span class="brand-mark" aria-hidden="true"><span>RG</span></span>
+          <a class="brand brand--footer" href="${siteHref(root)}" aria-label="Royal Grace Global home">
+            <img class="brand-mark" src="${siteHref(root, "assets/favicon.svg")}" alt="" width="54" height="54">
             <span class="brand-copy">
               <strong>Royal Grace Global</strong>
               <small>Bridging Nations Enriching Lives</small>
@@ -133,7 +132,7 @@ class SiteFooter extends HTMLElement {
 customElements.define("site-header", SiteHeader);
 customElements.define("site-footer", SiteFooter);
 
-export function initRevealAnimations() {
+function initRevealAnimations() {
   const elements = [...document.querySelectorAll("[data-reveal]")];
   if (!elements.length) return;
 

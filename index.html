@@ -3,58 +3,40 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fffdf9">
     <meta name="description" content="Royal Grace Global connects distinctive Indonesian vanilla and handcrafted eyelashes with trusted global partners.">
     <title>Royal Grace Global | Indonesian Treasures, Global Reach</title>
-    <link rel="canonical" href="./">
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
     <link rel="stylesheet" href="./assets/styles.css">
   </head>
-  <body>
-    <site-header><header class="fallback-header"><a href="./">Royal Grace Global</a><nav aria-label="Fallback navigation"><a href="./">Home</a><a href="./about/">About Us</a><a href="./products/">Our Products</a><a href="./#contact">Contact status</a></nav></header></site-header>
+  <body data-page="home">
+    <site-header data-root="./"><header class="fallback-header"><a href="./">Royal Grace Global</a><nav aria-label="Fallback navigation"><a href="./">Home</a><a href="./about/">About Us</a><a href="./products/">Our Products</a><a href="./#contact">Contact</a></nav></header></site-header>
     <main id="main-content">
       <section class="home-hero">
         <div class="home-hero__copy" data-reveal>
-          <span class="eyebrow">From Indonesia to the World</span>
-          <h1>Indonesian Treasures for a Brighter Tomorrow</h1>
-          <p class="lead">We connect remarkable Indonesian products with global partners through quality, integrity, and a shared belief in responsible growth.</p>
+          <span class="eyebrow eyebrow--purple">From Indonesia to the World</span>
+          <h1><span>Indonesian Treasures</span> for a Brighter Tomorrow</h1>
+          <p class="lead">We bring high-quality Indonesian products to the world, building trusted partnerships for a more sustainable and prosperous future.</p>
           <div class="button-row">
-            <a class="button button--gold" href="./products/">Discover Our Products <span aria-hidden="true">↗</span></a>
-            <a class="text-link text-link--light" href="./about/">Our story <span aria-hidden="true">→</span></a>
+            <a class="button button--purple" href="./products/">Our Products <span aria-hidden="true">→</span></a>
+            <a class="button button--outline" href="./#partnership">Partner With Us <span aria-hidden="true">→</span></a>
           </div>
         </div>
         <div class="home-hero__visual" data-reveal>
-          <img src="./assets/images/bali-temple.webp" alt="Balinese water temple beside a misty mountain lake at sunrise" width="1536" height="1024">
-          <div class="hero-seal" aria-hidden="true"><span>Indonesia</span><strong>to the world</strong></div>
+          <div class="hero-product hero-product--vanilla">
+            <img src="./assets/images/vanilla.webp" alt="Indonesian vanilla beans with a white vanilla flower" width="1440" height="1080">
+          </div>
+          <div class="hero-product hero-product--lashes">
+            <img src="./assets/images/eyelashes.webp" alt="Handcrafted eyelashes in an elegant blush setting" width="1440" height="1080">
+          </div>
+          <p class="hero-script" aria-hidden="true">Grace<br>Moves<br>the World</p>
+          <div class="hero-seal" aria-hidden="true"><span>Authentic</span><strong>Indonesian products</strong></div>
         </div>
-        <div class="hero-scroll" aria-hidden="true"><span></span> Discover</div>
-      </section>
-
-      <section class="brand-pillars section section--ivory" aria-labelledby="pillars-title">
-        <div class="section-head section-head--center" data-reveal>
-          <span class="eyebrow eyebrow--purple">What guides us</span>
-          <h2 id="pillars-title">Global ambition, grounded in purpose.</h2>
-        </div>
-        <div class="pillar-grid">
-          <article class="pillar" data-reveal>
-            <span class="line-icon" aria-hidden="true">◆</span>
-            <h3>Premium Quality</h3>
-            <p>Products selected and prepared with care for discerning international markets.</p>
-          </article>
-          <article class="pillar" data-reveal>
-            <span class="line-icon" aria-hidden="true">◇</span>
-            <h3>Trusted Partnerships</h3>
-            <p>Clear communication and long-term relationships at every step of the journey.</p>
-          </article>
-          <article class="pillar" data-reveal>
-            <span class="line-icon" aria-hidden="true">✦</span>
-            <h3>Sustainable Growth</h3>
-            <p>Thoughtful growth that values communities, craft, and the resources we share.</p>
-          </article>
-          <article class="pillar" data-reveal>
-            <span class="line-icon" aria-hidden="true">◎</span>
-            <h3>Positive Global Impact</h3>
-            <p>Trade designed to create meaningful value across cultures and markets.</p>
-          </article>
+        <div class="hero-proof" aria-label="Royal Grace Global commitments">
+          <span><b aria-hidden="true">◇</b> Premium Quality</span>
+          <span><b aria-hidden="true">◎</b> Trusted Partnerships</span>
+          <span><b aria-hidden="true">↗</b> Sustainable Growth</span>
+          <span><b aria-hidden="true">♡</b> Positive Global Impact</span>
         </div>
       </section>
 
@@ -155,7 +137,7 @@
         </div>
       </section>
     </main>
-    <site-footer><footer class="fallback-footer"><strong>Royal Grace Global</strong><small>Bridging Nations Enriching Lives</small></footer></site-footer>
-    <script type="module" src="./assets/site.js"></script>
+    <site-footer data-root="./"><footer class="fallback-footer"><strong>Royal Grace Global</strong><small>Bridging Nations Enriching Lives</small></footer></site-footer>
+    <script src="./assets/site.js" defer></script>
   </body>
 </html>
