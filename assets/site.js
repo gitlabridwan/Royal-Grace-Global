@@ -1,11 +1,17 @@
+const siteRoot = new URL("../", import.meta.url);
+const siteHref = (path = "") => {
+  const url = new URL(path, siteRoot);
+  return `${url.pathname}${url.search}${url.hash}`;
+};
+
 const navItems = [
-  ["Home", "/"],
-  ["About Us", "/about/"],
-  ["Our Products", "/products/"],
-  ["Global Partnership", "/#partnership"],
-  ["Sustainability", "/about/#commitment"],
-  ["News", "/#news"],
-  ["Contact", "/#contact"],
+  ["Home", siteHref()],
+  ["About Us", siteHref("about/")],
+  ["Our Products", siteHref("products/")],
+  ["Global Partnership", siteHref("#partnership")],
+  ["Sustainability", siteHref("about/#commitment")],
+  ["News", siteHref("#news")],
+  ["Contact", siteHref("#contact")],
 ];
 
 const activePathFor = (href) => {
@@ -29,7 +35,7 @@ class SiteHeader extends HTMLElement {
       <a class="skip-link" href="#main-content">Skip to content</a>
       <header class="site-header">
         <div class="header-inner">
-          <a class="brand" href="/" aria-label="Royal Grace Global home">
+          <a class="brand" href="${siteHref()}" aria-label="Royal Grace Global home">
             <span class="brand-mark" aria-hidden="true"><span>RG</span></span>
             <span class="brand-copy">
               <strong>Royal Grace Global</strong>
@@ -44,7 +50,7 @@ class SiteHeader extends HTMLElement {
           </button>
           <nav id="primary-navigation" class="primary-navigation" aria-label="Primary navigation">
             <ul>${items}</ul>
-            <a class="header-cta" href="/#contact">Contact Status <span aria-hidden="true">↗</span></a>
+            <a class="header-cta" href="${siteHref("#contact")}">Contact Status <span aria-hidden="true">↗</span></a>
           </nav>
         </div>
       </header>`;
@@ -102,7 +108,7 @@ class SiteFooter extends HTMLElement {
     this.innerHTML = `
       <footer class="site-footer">
         <div class="footer-main">
-          <a class="brand brand--footer" href="/" aria-label="Royal Grace Global home">
+          <a class="brand brand--footer" href="${siteHref()}" aria-label="Royal Grace Global home">
             <span class="brand-mark" aria-hidden="true"><span>RG</span></span>
             <span class="brand-copy">
               <strong>Royal Grace Global</strong>
