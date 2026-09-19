@@ -46,35 +46,44 @@ class SiteHeader extends HTMLElement {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </button>
-          <nav id="primary-navigation" class="primary-navigation" aria-label="Primary navigation">
+          <nav id="primary-navigation" class="primary-navigation" aria-label="Primary navigation" aria-hidden="true">
             <ul>${items}</ul>
             <a class="header-cta" href="${siteHref(root, "#contact")}">Get in Touch <span aria-hidden="true">→</span></a>
           </nav>
+          <button class="navigation-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
         </div>
       </header>`;
 
     const button = this.querySelector(".menu-toggle");
     const navigation = this.querySelector(".primary-navigation");
     const header = this.querySelector(".site-header");
+    const backdrop = this.querySelector(".navigation-backdrop");
+    const desktopNavigation = window.matchMedia("(min-width: 68rem)");
 
     const syncHeaderHeight = () => {
       document.documentElement.style.setProperty("--header-height", `${header.offsetHeight}px`);
     };
     requestAnimationFrame(syncHeaderHeight);
 
-    const closeMenu = ({ restoreFocus = false } = {}) => {
-      button.setAttribute("aria-expanded", "false");
-      navigation.classList.remove("is-open");
-      document.body.classList.remove("menu-open");
-      if (restoreFocus) button.focus();
+    const setMenuState = (open, { restoreFocus = false } = {}) => {
+      const isOpen = open && !desktopNavigation.matches;
+      button.setAttribute("aria-expanded", String(isOpen));
+      navigation.classList.toggle("is-open", isOpen);
+      navigation.setAttribute("aria-hidden", String(!desktopNavigation.matches && !isOpen));
+      document.body.classList.toggle("menu-open", isOpen);
+      backdrop.hidden = !isOpen;
+      if (restoreFocus && !desktopNavigation.matches) button.focus();
     };
+
+    const closeMenu = (options) => setMenuState(false, options);
+    setMenuState(false);
 
     button.addEventListener("click", () => {
       const isOpen = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!isOpen));
-      navigation.classList.toggle("is-open", !isOpen);
-      document.body.classList.toggle("menu-open", !isOpen);
+      setMenuState(!isOpen);
     });
+
+    backdrop.addEventListener("click", () => closeMenu({ restoreFocus: true }));
 
     navigation.addEventListener("click", (event) => {
       if (event.target.closest("a")) closeMenu();
@@ -96,7 +105,7 @@ class SiteHeader extends HTMLElement {
 
     window.addEventListener("resize", () => {
       syncHeaderHeight();
-      if (window.matchMedia("(min-width: 68rem)").matches) closeMenu();
+      closeMenu();
     });
   }
 }
