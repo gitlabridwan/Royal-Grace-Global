@@ -1289,6 +1289,80 @@ h3 {
   color: var(--gold-600);
 }
 
+.product-gallery {
+  background:
+    radial-gradient(circle at 100% 0, rgba(213, 170, 86, 0.13), transparent 24rem),
+    var(--ivory);
+}
+
+.product-gallery__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.product-gallery__item {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid rgba(76, 22, 117, 0.12);
+  border-radius: 1.15rem;
+  background: white;
+  box-shadow: 0 1rem 2.5rem rgba(55, 16, 81, 0.1);
+  isolation: isolate;
+}
+
+.product-gallery__item::after {
+  position: absolute;
+  z-index: 1;
+  inset: 48% 0 0;
+  content: "";
+  background: linear-gradient(to top, rgba(47, 7, 88, 0.82), transparent);
+  pointer-events: none;
+}
+
+.product-gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.product-gallery__item:hover .product-gallery__image {
+  transform: scale(1.035);
+}
+
+.product-gallery__item figcaption {
+  position: absolute;
+  z-index: 2;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  color: white;
+}
+
+.product-gallery__item figcaption span {
+  display: grid;
+  width: 2.35rem;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  color: var(--gold-400);
+  font-family: var(--serif);
+}
+
+.product-gallery__item figcaption strong {
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+}
+
 .promise-grid {
   display: grid;
   gap: 1px;
@@ -1470,6 +1544,13 @@ h3 {
 .range-card__image--materials img {
   object-position: 78% center;
   transform: scale(1.4);
+}
+
+.range-card__image--natural img,
+.range-card__image--volume img,
+.range-card__image--assorted img {
+  object-position: center;
+  transform: none;
 }
 
 .range-card > div:last-child {
@@ -1725,6 +1806,15 @@ h3 {
 
   .editorial-product__visual img {
     min-height: 38rem;
+  }
+
+  .product-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-gallery__item--featured {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 7;
   }
 
   .promise-grid,
